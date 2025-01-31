@@ -23,52 +23,52 @@ public class Main {
                     System.out.println("Enter food id: ");
                     int foodId = sc.nextInt();
                     System.out.println("Enter food name: ");
-                    String foodname = sc.nextLine();
+                    String foodName = sc.nextLine();
                     sc.nextLine();
                     System.out.println("Enter food category: ");
-                    String foodcategory = sc.nextLine();
+                    String foodCategory = sc.nextLine();
                     System.out.println("Enter Date: ");
                     String createdAt = sc.nextLine();
 
-                    Food newFood = new Food(foodId, foodname, foodcategory, createdAt);
+                    Food newFood = new Food(foodId, foodName, foodCategory, createdAt);
                     foodDao.addFood(newFood);
                     break;
                 case 2:
                     System.out.println("Enter Food id to delete:");
-                    int deleteid = sc.nextInt();
-                    foodDao.deleteData(deleteid);
+                    int deleteId = sc.nextInt();
+                    foodDao.deleteData(deleteId);
                     System.out.println("Data deleted successfully");
                     break;
                 case 3:
                     System.out.println("Enter food id to update: ");
-                    int updateid = sc.nextInt();
+                    int updateId = sc.nextInt();
                     System.out.println("Enter food name to update: ");
-                    String updatename = sc.nextLine();
+                    String updateName = sc.nextLine();
                     sc.nextLine();
                     System.out.println("Enter category to update: ");
-                    String updatecategory = sc.nextLine();
+                    String updateCategory = sc.nextLine();
                     System.out.println("Enter Date to update: ");
                     String updatedAt = sc.nextLine();
-                    Food updatefood = new Food(updateid, updatename, updatecategory, updatedAt);
-                    foodDao.updateData(updatefood);
+                    Food updateFood = new Food(updateId, updateName, updateCategory, updatedAt);
+                    foodDao.updateData(updateFood);
                     break;
                 case 4:
                     System.out.println("Enter food to search: ");
                     String keyword = sc.nextLine();
-                    List<Food> foodlist = foodDao.searchFood(keyword);
+                    List<Food> foodList = foodDao.searchFood(keyword);
 
-                    for (Food f : foodlist) {
-                        System.out.println(f.getFoodID() + "\t" + f.getFoodName() + "\t" + f.getCategory() + "\t" + f.getCreatedAt());
+                    for (Food f : foodList) {
+                        System.out.println(f.getFoodId() + "\t" + f.getFoodName() + "\t" + f.getCategory() + "\t" + f.getCreatedAt());
                     }
                     break;
                 case 5:
                     System.out.println("Displaying database");
-                    foodDao.DisplayData();
+                    foodDao.displayData();
                     break;
                 case 6:
                     System.out.println("Exit");
                     sc.close();
-                    System.exit(0);
+                    //System.exit(0);
                     break;
                 default:
                     System.out.println("Invalid choice");

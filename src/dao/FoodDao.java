@@ -13,7 +13,7 @@ public class FoodDao {
         this.connection=DatabaseConnection.getConnection();
     }
 
-    public void DisplayData()
+    public void displayData()
     {
         String sql1="select * from Food";
 
@@ -89,7 +89,7 @@ public class FoodDao {
 
     public List<Food> searchFood(String keyword)
     {
-        List<Food> foodslist=new ArrayList<>();
+        List<Food> foodsList=new ArrayList<>();
         String sql="Select * From Food WHERE FoodName LIKE ?";
         try(PreparedStatement st=connection.prepareStatement(sql))
         {
@@ -102,13 +102,13 @@ public class FoodDao {
                         rs.getString("Category"),
                         rs.getString("CreatedAt")
                         );
-                foodslist.add(food);
+                foodsList.add(food);
             }
         }
         catch(SQLException e)
         {
             e.printStackTrace();
         }
-        return foodslist;
+        return foodsList;
     }
 }

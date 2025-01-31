@@ -3,45 +3,45 @@ package models;
 import java.time.LocalDateTime;
 
 public class Food {
-    private int FoodID;
-    private String FoodName;
-    private String Category;
-    private String CreatedAt;
+    private int foodId;
+    private String foodName;
+    private String category;
+    private String createdAt;
 
-    public Food(int FoodID, String FoodName, String Category, String CreatedAt) {
-        this.FoodID = FoodID;
-        this.FoodName = FoodName;
-        this.Category = Category;
-        this.CreatedAt = CreatedAt;
+    public Food(int foodId, String foodName, String category, String createdAt) {
+        this.foodId = foodId;
+        this.foodName = foodName;
+        this.category = category;
+        this.createdAt = createdAt;
     }
-    public int getFoodID()
+    public int getFoodId()
     {
-        return FoodID;
+        return foodId;
     }
-    public void setFoodID(int FoodID)
+    public void setFoodID(int foodId)
     {
-        this.FoodID=FoodID;
+        this.foodId=foodId;
     }
     public String getFoodName()
     {
-        return FoodName;
+        return foodName;
     }
-    public void setFoodName(String FoodName)
+    public void setFoodName(String foodName)
     {
-        this.FoodName=FoodName;
+        this.foodName=foodName;
     }
     public String getCategory()
     {
-        return Category;
+        return category;
     }
     public void setCategory(String category) {
-        this.Category = category;
+        this.category = category;
     }
     public String getCreatedAt()
     {
-        return CreatedAt;
+        return createdAt;
     }
     public void setCreatedAt(String createdAt) {
-        CreatedAt = createdAt;
+        createdAt = createdAt;
     }
 }
