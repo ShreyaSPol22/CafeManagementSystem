@@ -41,7 +41,7 @@ public class FoodDao {
 
         try(PreparedStatement st=connection.prepareStatement(sql))
         {
-            st.setInt(1, food.getFoodID());
+            st.setInt(1, food.getFoodId());
             st.setString(2,food.getFoodName());
             st.setString(3,food.getCategory());
             st.setString(4,food.getCreatedAt());
@@ -77,7 +77,7 @@ public class FoodDao {
             st.setString(1,food.getFoodName());
             st.setString(2,food.getCategory());
             st.setString(3,food.getCreatedAt());
-            st.setInt(4,food.getFoodID());
+            st.setInt(4,food.getFoodId());
             st.executeUpdate();
             System.out.println("Data updated successfully");
         }
