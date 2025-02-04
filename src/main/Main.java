@@ -1,78 +1,84 @@
 package main;
 
-import dao.FoodDao;
+import Operations.FoodOperations;
 import models.Food;
+
+import java.time.LocalDateTime;
 import java.util.Scanner;
 import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        FoodDao foodDao = new FoodDao();
+        FoodOperations foodOps = new FoodOperations();
         Scanner sc = new Scanner(System.in);
-        while (true) {
+        char ch = 'y';
+        while (ch == 'y') {
             System.out.println("1.Add Food");
-            System.out.println("2.Delete Food");
-            System.out.println("3.Update Food");
-            System.out.println("4.Search Food");
-            System.out.println("5.Display Food");
-            System.out.println("6.Exit");
+            System.out.println("2.Add Food by filepath");
+            System.out.println("3.Delete Food");
+            System.out.println("4.Update Food");
+            System.out.println("5.Search Food");
+            System.out.println("6.Display Food");
+            System.out.println("7.Exit");
             System.out.println("Enter your choice: ");
             int choice = sc.nextInt();
             switch (choice) {
                 case 1:
-                    System.out.println("Enter food id: ");
-                    int foodId = sc.nextInt();
+                    Food addObj = new Food();
                     System.out.println("Enter food name: ");
-                    String foodName = sc.nextLine();
                     sc.nextLine();
+                    addObj.setFoodName(sc.nextLine());
                     System.out.println("Enter food category: ");
-                    String foodCategory = sc.nextLine();
-                    System.out.println("Enter Date: ");
-                    String createdAt = sc.nextLine();
-
-                    Food newFood = new Food(foodId, foodName, foodCategory, createdAt);
-                    foodDao.addFood(newFood);
+                    addObj.setCategory(sc.nextLine());
+                    addObj.setCreatedAt(LocalDateTime.now());
+                    foodOps.addFood(addObj);
                     break;
                 case 2:
-                    System.out.println("Enter Food id to delete:");
-                    int deleteId = sc.nextInt();
-                    foodDao.deleteData(deleteId);
-                    System.out.println("Data deleted successfully");
+                    System.out.println("Enter file path: ");
+                    sc.nextLine();
+                    String path = sc.nextLine();
+                    foodOps.addByFile(path);
                     break;
                 case 3:
-                    System.out.println("Enter food id to update: ");
-                    int updateId = sc.nextInt();
-                    System.out.println("Enter food name to update: ");
-                    String updateName = sc.nextLine();
-                    sc.nextLine();
-                    System.out.println("Enter category to update: ");
-                    String updateCategory = sc.nextLine();
-                    System.out.println("Enter Date to update: ");
-                    String updatedAt = sc.nextLine();
-                    Food updateFood = new Food(updateId, updateName, updateCategory, updatedAt);
-                    foodDao.updateData(updateFood);
+                    System.out.println("Enter Food id to delete:");
+                    int deleteId = sc.nextInt();
+                    foodOps.deleteData(deleteId);
                     break;
                 case 4:
-                    System.out.println("Enter food to search: ");
+                    Food updateObj = new Food();
+                    System.out.println("Enter food id to update:");
+                    int updateId = sc.nextInt();
+                    System.out.println("Enter food name to update: ");
+                    sc.nextLine();
+                    updateObj.setFoodName(sc.nextLine());
+                    System.out.println("Enter category to update: ");
+                    updateObj.setCategory(sc.nextLine());
+                    updateObj.setCreatedAt(LocalDateTime.now());
+                    foodOps.updateData(updateObj);
+                    break;
+                case 5:
+                    sc.nextLine();
+                    System.out.println("Enter food name to search: ");
                     String keyword = sc.nextLine();
-                    List<Food> foodList = foodDao.searchFood(keyword);
+                    List<Food> foodList = foodOps.searchFood(keyword);
 
                     for (Food f : foodList) {
                         System.out.println(f.getFoodId() + "\t" + f.getFoodName() + "\t" + f.getCategory() + "\t" + f.getCreatedAt());
                     }
                     break;
-                case 5:
-                    System.out.println("Displaying database");
-                    foodDao.displayData();
-                    break;
                 case 6:
+                    System.out.println("Displaying database");
+                    foodOps.displayData();
+                    break;
+                case 7:
                     System.out.println("Exit");
                     sc.close();
-                    //System.exit(0);
                     break;
                 default:
                     System.out.println("Invalid choice");
             }
+            System.out.println("Do you want to continue (Y/N): ");
+            ch = sc.next().charAt(0);
         }
     }
 }
