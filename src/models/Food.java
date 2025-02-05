@@ -7,16 +7,12 @@ public class Food {
     private String foodName;
     private String category;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private LocalDateTime effectiveDate;
+    private double price;
 
     public Food() {
 
-    }
-
-    //For data insertion
-    public Food(String foodName, String category, LocalDateTime createdAt) {
-        this.foodName = foodName;
-        this.category = category;
-        this.createdAt = createdAt;
     }
 
     //For retrieval
@@ -52,6 +48,30 @@ public class Food {
     }
 
     public void setCreatedAt(LocalDateTime createdAt) {
-        createdAt = createdAt;
+        this.createdAt = createdAt;
+    }
+
+    public LocalDateTime getUpdatedAt() {
+        return updatedAt;
+    }
+
+    public void setUpdatedAt(LocalDateTime updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
+    public LocalDateTime getEffectiveDate() {
+        return effectiveDate;
+    }
+
+    public void setEffectiveDate(LocalDateTime effectiveDate) {
+        this.effectiveDate = effectiveDate;
     }
 }

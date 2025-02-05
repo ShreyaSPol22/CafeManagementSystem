@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class DatabaseConnection {
+public final class DatabaseConnection {
     private static Connection connection;
     private static final Logger LOGGER = Logger.getLogger(DatabaseConnection.class.getName());
     private static final String url = "jdbc:mysql://localhost:3306/cafe";
