@@ -1,7 +1,7 @@
-package main;
+package Main;
 
 import Operations.FoodOperations;
-import models.Food;
+import Models.Food;
 
 import java.time.LocalDateTime;
 import java.util.Scanner;
@@ -10,9 +10,9 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         FoodOperations foodOps = new FoodOperations();
-        char ch = 'y';
-        while (ch == 'y') {
-            try (Scanner sc = new Scanner(System.in)) {
+        int flag = 0;
+        try (Scanner sc = new Scanner(System.in)) {
+            do {
                 System.out.println("1.Add Food");
                 System.out.println("2.Add Food by filepath");
                 System.out.println("3.Delete Food");
@@ -26,15 +26,13 @@ public class Main {
                     case 1:
                         Food addObj = new Food();
                         System.out.println("Enter food name: ");
-                        //sc.nextLine();
-                        addObj.setFoodName(sc.next());
+                        sc.nextLine();
+                        addObj.setFoodName(sc.nextLine());
                         System.out.println("Enter food category: ");
-                        addObj.setCategory(sc.next());
-                    /*System.out.println("Enter food price: ");
-                    addObj.setPrice(sc.nextDouble());
-                    addObj.setEffectiveDate(LocalDateTime.now());
-                     */
-                        addObj.setCreatedAt(LocalDateTime.now());
+                        addObj.setCategory(sc.nextLine());
+                        System.out.println("Enter food price: ");
+                        addObj.setPrice(sc.nextDouble());
+//                        addObj.setCreatedDate(LocalDateTime.now());
                         foodOps.addFood(addObj);
                         break;
                     case 2:
@@ -51,23 +49,40 @@ public class Main {
                     case 4:
                         Food updateObj = new Food();
                         System.out.println("Enter food id to update:");
-                        int updateId = sc.nextInt();
-                        System.out.println("Enter food name to update: ");
-                        sc.nextLine();
-                        updateObj.setFoodName(sc.nextLine());
-                        System.out.println("Enter category to update: ");
-                        updateObj.setCategory(sc.nextLine());
-                        updateObj.setCreatedAt(LocalDateTime.now());
-                        foodOps.updateData(updateObj);
+                        updateObj.setFoodId(sc.nextInt());
+                        System.out.println("Select what you want to update:");
+                        System.out.println("1.Food Name\t2.Category\t3.Price");
+                        System.out.println("Enter your choice to update:");
+                        int choiceUpdate = sc.nextInt();
+                        switch (choiceUpdate) {
+                            case 1:
+                                System.out.println("Enter food name to update: ");
+                                sc.nextLine();
+                                updateObj.setFoodName(sc.nextLine());
+                                foodOps.updateData(updateObj, choiceUpdate);
+                                break;
+                            case 2:
+                                System.out.println("Enter category to update: ");
+                                sc.nextLine();
+                                updateObj.setCategory(sc.nextLine());
+                                foodOps.updateData(updateObj, choiceUpdate);
+                                break;
+                            case 3:
+                                System.out.println("Enter price to update: ");
+                                updateObj.setPrice(sc.nextDouble());
+                                foodOps.updateData(updateObj, choiceUpdate);
+                                break;
+                            default:
+                                System.out.println("Invalid choice");
+                        }
                         break;
                     case 5:
                         sc.nextLine();
                         System.out.println("Enter food name to search: ");
                         String keyword = sc.nextLine();
                         List<Food> foodList = foodOps.searchFood(keyword);
-
                         for (Food f : foodList) {
-                            System.out.println(f.getFoodId() + "\t" + f.getFoodName() + "\t" + f.getCategory() + "\t" + f.getCreatedAt());
+                            System.out.println(f.getFoodId() + "\t" + f.getFoodName() + "\t" + f.getCategory() + "\t");
                         }
                         break;
                     case 6:
@@ -82,10 +97,11 @@ public class Main {
                         System.out.println("Invalid choice");
                 }
                 System.out.println("Do you want to continue (Y/N): ");
-                ch = sc.next().charAt(0);
-            } catch (Exception e) {
-                System.out.println(e.getMessage());
-            }
+                char ch = sc.next().charAt(0);
+                flag = ((ch == 'Y' || ch == 'y') ? 1 : 0);
+            } while (flag == 1);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 }

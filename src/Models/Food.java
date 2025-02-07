@@ -1,4 +1,4 @@
-package models;
+package Models;
 
 import java.time.LocalDateTime;
 
@@ -6,25 +6,27 @@ public class Food {
     private int foodId;
     private String foodName;
     private String category;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime effectiveDate;
     private double price;
+    private LocalDateTime CreatedDate;
 
     public Food() {
 
     }
 
     //For retrieval
-    public Food(int foodId, String foodName, String category, LocalDateTime createdAt) {
+    public Food(int foodId, String foodName, String category, double price) {
         this.foodId = foodId;
         this.foodName = foodName;
         this.category = category;
-        this.createdAt = createdAt;
+        this.price = price;
     }
 
     public int getFoodId() {
         return foodId;
+    }
+
+    public void setFoodId(int foodId) {
+        this.foodId = foodId;
     }
 
     public String getFoodName() {
@@ -43,35 +45,11 @@ public class Food {
         this.category = category;
     }
 
-    public LocalDateTime getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
     public double getPrice() {
         return price;
     }
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public LocalDateTime getEffectiveDate() {
-        return effectiveDate;
-    }
-
-    public void setEffectiveDate(LocalDateTime effectiveDate) {
-        this.effectiveDate = effectiveDate;
     }
 }
