@@ -32,7 +32,6 @@ public class Main {
                         addObj.setCategory(sc.nextLine());
                         System.out.println("Enter food price: ");
                         addObj.setPrice(sc.nextDouble());
-//                        addObj.setCreatedDate(LocalDateTime.now());
                         foodOps.addFood(addObj);
                         break;
                     case 2:
@@ -92,13 +91,24 @@ public class Main {
                     case 7:
                         System.out.println("Exit");
                         sc.close();
+                        flag = 0;
                         break;
                     default:
                         System.out.println("Invalid choice");
                 }
-                System.out.println("Do you want to continue (Y/N): ");
-                char ch = sc.next().charAt(0);
-                flag = ((ch == 'Y' || ch == 'y') ? 1 : 0);
+
+                if (flag != 0) {
+                    do {
+                        System.out.println("Do you want to continue (Y/N): ");
+                        char ch = sc.next().charAt(0);
+
+                        flag = (ch == 'Y' || ch == 'y') ? 1 : (ch == 'N' || ch == 'n') ? 0 : -1;
+                        if (flag == -1) {
+                            System.out.println("Invalid choice");
+                        }
+                    } while (flag == -1);
+                }
+
             } while (flag == 1);
         } catch (Exception e) {
             System.out.println(e.getMessage());

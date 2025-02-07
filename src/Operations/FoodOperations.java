@@ -20,7 +20,6 @@ import java.util.List;
 
 public class FoodOperations {
     private final Connection connection = DatabaseConnection.getInstance();
-    ;
     private static final Logger LOGGER = Logger.getLogger(Operations.FoodOperations.class.getName());
 
     public FoodOperations() {
