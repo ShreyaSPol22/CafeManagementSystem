@@ -19,7 +19,6 @@ public class Main {
                 System.out.println("4.Update Food");
                 System.out.println("5.Search Food");
                 System.out.println("6.Display Food");
-                System.out.println("7.Exit");
                 System.out.println("Enter your choice: ");
                 int choice = sc.nextInt();
                 switch (choice) {
@@ -32,6 +31,7 @@ public class Main {
                         addObj.setCategory(sc.nextLine());
                         System.out.println("Enter food price: ");
                         addObj.setPrice(sc.nextDouble());
+//                        addObj.setCreatedDate(LocalDateTime.now());
                         foodOps.addFood(addObj);
                         break;
                     case 2:
@@ -88,26 +88,19 @@ public class Main {
                         System.out.println("Displaying database");
                         foodOps.displayData();
                         break;
-                    case 7:
-                        System.out.println("Exit");
-                        sc.close();
-                        flag = 0;
-                        break;
                     default:
                         System.out.println("Invalid choice");
                 }
 
-                if (flag != 0) {
-                    do {
-                        System.out.println("Do you want to continue (Y/N): ");
-                        char ch = sc.next().charAt(0);
+                do {
+                    System.out.println("Do you want to continue (Y/N): ");
+                    char ch = sc.next().charAt(0);
 
-                        flag = (ch == 'Y' || ch == 'y') ? 1 : (ch == 'N' || ch == 'n') ? 0 : -1;
-                        if (flag == -1) {
-                            System.out.println("Invalid choice");
-                        }
-                    } while (flag == -1);
-                }
+                    flag = (ch == 'Y' || ch == 'y') ? 1 : (ch == 'N' || ch == 'n') ? 0 : -1;
+                    if (flag == -1) {
+                        System.out.println("Invalid choice");
+                    }
+                } while (flag == -1);
 
             } while (flag == 1);
         } catch (Exception e) {
