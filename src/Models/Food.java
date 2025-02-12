@@ -1,13 +1,11 @@
 package Models;
 
-import java.time.LocalDateTime;
 
 public class Food {
     private int foodId;
     private String foodName;
     private String category;
     private double price;
-    private LocalDateTime CreatedDate;
 
     public Food() {
 
