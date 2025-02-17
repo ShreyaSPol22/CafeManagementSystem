@@ -5,7 +5,7 @@ import Models.Food;
 import java.util.List;
 
 public interface FoodServices {
-    public void displayData();
+    public List<Food> displayData();
 
     public void addFood(Food food);
 
@@ -23,5 +23,5 @@ public interface FoodServices {
 
     public boolean isFoodIdExists(int id);
 
-    public void displayWithJson();
+    public void displayWithJson(List<Food> foods);
 }

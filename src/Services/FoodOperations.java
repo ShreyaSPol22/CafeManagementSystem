@@ -13,13 +13,13 @@ import java.sql.ResultSet;
 import java.sql.Timestamp;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import org.json.JSONArray;
-import org.json.JSONObject;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.ArrayList;
 import java.lang.String;
 import java.util.List;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class FoodOperations implements FoodServices {
     private final Connection connection = DatabaseConnection.getInstance();
@@ -29,24 +29,25 @@ public class FoodOperations implements FoodServices {
 
     }
 
-    public void displayData() {
+    public List<Food> displayData() {
+        List<Food> foodList = new ArrayList<>();
         String query = "SELECT * FROM food";
+
         try (Statement st = connection.createStatement(); ResultSet rs = st.executeQuery(query)) {
-            System.out.println("FoodId\tFoodName\tCategory\t\tPrice\t\tCreatedDate\t\tUpdatedDate");
             while (rs.next()) {
-                int foodId = rs.getInt("FoodID");
-                String foodName = rs.getString("FoodName");
-                String category = rs.getString("Category");
-                double price = rs.getDouble("Price");
-                Timestamp createdDate = rs.getTimestamp("CreatedDate");
-                Timestamp updatedDate = rs.getTimestamp("UpdatedDate");
-                System.out.println(foodId + "\t\t" + foodName + "\t\t\t" + category + "\t\t" + price + "\t\t" + createdDate + "\t\t" + updatedDate);
-                System.out.println("------------------------------------------------------------------------");
+                Food food = new Food();
+                food.setFoodId(rs.getInt("FoodID"));
+                food.setFoodName(rs.getString("FoodName"));
+                food.setCategory(rs.getString("Category"));
+                food.setPrice(rs.getDouble("Price"));
+                food.setCreatedDate(rs.getTimestamp("CreatedDate").toLocalDateTime());
+                food.setUpdatedDate(rs.getTimestamp("UpdatedDate").toLocalDateTime());
+                foodList.add(food);
             }
         } catch (SQLException e) {
             LOGGER.log(Level.SEVERE, e.getMessage());
         }
-
+        return foodList;
     }
 
     public void addFood(Food food) {
@@ -218,8 +219,7 @@ public class FoodOperations implements FoodServices {
                 int count = rs.getInt("count");
                 if (count > 0) {
                     return true;
-                }
-                else {
+                } else {
                     System.out.println("No food id found");
                     return false;
                 }
@@ -230,25 +230,14 @@ public class FoodOperations implements FoodServices {
         return false;
     }
 
-    public void displayWithJson(){
-        JSONArray jsonArray = new JSONArray();
-        String sql = "SELECT * FROM Food order by FoodID";
+    public void displayWithJson(List<Food> foodsList) {
+        ObjectMapper objectMapper = new ObjectMapper();
 
-        try(Statement st=connection.createStatement(); ResultSet rs=st.executeQuery(sql)){
-            while(rs.next()){
-                JSONObject jsonObject = new JSONObject();
-                jsonObject.put("FoodId",rs.getInt("FoodId"));
-                jsonObject.put("FoodName",rs.getString("FoodName"));
-                jsonObject.put("Category",rs.getString("Category"));
-                jsonObject.put("Price",rs.getDouble("Price"));
-                jsonObject.put("CreatedDate",rs.getString("CreatedDate"));
-                jsonObject.put("UpdatedDate",rs.getTimestamp("UpdatedDate"));
-
-                jsonArray.put(jsonObject);
-            }
-        }catch(SQLException e){
-            LOGGER.log(Level.SEVERE, e.getMessage());
+        try {
+            String jsonData = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(foodsList);
+            System.out.println(jsonData);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
-        System.out.println(jsonArray.toString(4));
     }
 }

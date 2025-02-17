@@ -1,11 +1,16 @@
 package Models;
 
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 public class Food {
     private int foodId;
     private String foodName;
     private String category;
     private double price;
+    private String createdDate;
+    private String updatedDate;
 
     public Food() {
 
@@ -49,5 +54,21 @@ public class Food {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getCreatedDate() {
+        return createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate.toString();
+    }
+
+    public String getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(LocalDateTime updatedDate) {
+        this.updatedDate = updatedDate.toString();
     }
 }
